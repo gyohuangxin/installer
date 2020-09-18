@@ -517,6 +517,7 @@ func deleteCustomRouterInterfaces(opts *clientconfig.ClientOpts, filter Filter, 
 	}
 
 	allPrimaryNetworks, err := networks.ExtractNetworks(allPages)
+	logger.Debugf("allPrimaryNetworks: %s", allPrimaryNetworks)
 	if err != nil {
 		logger.Debug(err)
 		return false, nil
@@ -535,12 +536,14 @@ func deleteCustomRouterInterfaces(opts *clientconfig.ClientOpts, filter Filter, 
 		NetworkID: allPrimaryNetworks[0].ID,
 	}
 	allPagesPort, err := ports.List(conn, portListOpts).AllPages()
+	logger.Debugf("allPagesPort: %s", allPagesPort)
 	if err != nil {
 		logger.Error(err)
 		return false, nil
 	}
 
 	allPrimayNetworkPorts, err := ports.ExtractPorts(allPagesPort)
+	logger.Debugf("allPrimayNetworkPorts: %s", allPrimayNetworkPorts)
 	if err != nil {
 		logger.Error(err)
 		return false, nil
